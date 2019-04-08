@@ -1,0 +1,4 @@
+<launch>
+  <node name="bt_comms_with_slave" pkg="aquascrub" type="bt_master.py" output="screen">
+  </node>
+</launch>
