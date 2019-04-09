@@ -114,11 +114,14 @@ catkin_package(
 ## Build ##
 ###########
 
+set(apriltag_include "/usr/local/include")
+
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
+  ${apriltag_include}
 )
 
 ## Declare a C++ library
