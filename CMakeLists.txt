@@ -131,10 +131,6 @@ include_directories(
 #   src/${PROJECT_NAME}/aquascrub.cpp
 # )
 
-ADD_LIBRARY(Serial_lib
-  /usr/local/lib/Serial.cpp
-  /usr/local/include/Serial.h
-)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -211,5 +207,5 @@ ADD_LIBRARY(Serial_lib
 
 LINK_DIRECTORIES("/usr/local/lib")
 add_executable(apriltags_demo scripts/apriltags_demo.cpp scripts/Serial.cpp)
-target_link_libraries(apriltags_demo ${catkin_LIBRARIES} ${OpenCV_LIBS} ${Serial_lib} v4l2 wiringPi apriltags )
+target_link_libraries(apriltags_demo ${catkin_LIBRARIES} ${OpenCV_LIBS} v4l2 apriltags )
 add_dependencies(apriltags_demo ${catkin_EXPORTED_TARGETS})
