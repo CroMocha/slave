@@ -165,11 +165,11 @@ public:
     m_arduino(false),
     m_timing(false),
 
-    m_width(640),
-    m_height(480),
+    m_width(320),
+    m_height(240),
     m_tagSize(0.116),
-    m_fx(432),
-    m_fy(432),
+    m_fx(260),
+    m_fy(260),
     m_px(m_width/2),
     m_py(m_height/2),
 
