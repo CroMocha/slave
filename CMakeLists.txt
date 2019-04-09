@@ -115,7 +115,6 @@ catkin_package(
 ###########
 ## Build ##
 ###########
-
 set(apriltag_include "/usr/local/include")
 
 ## Specify additional locations of header files
@@ -131,6 +130,11 @@ include_directories(
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/aquascrub.cpp
 # )
+
+ADD_LIBRARY(Serial_lib
+  /usr/local/lib/Serial.cpp
+  /usr/local/include/Serial.h
+)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -207,5 +211,5 @@ include_directories(
 
 LINK_DIRECTORIES("/usr/local/lib")
 add_executable(apriltags_demo scripts/apriltags_demo.cpp)
-target_link_libraries(apriltags_demo ${catkin_LIBRARIES} ${OpenCV_LIBS} apriltags )
+target_link_libraries(apriltags_demo ${catkin_LIBRARIES} ${OpenCV_LIBS} ${Serial_lib} v4l2 wiringPi apriltags )
 add_dependencies(apriltags_demo ${catkin_EXPORTED_TARGETS})
