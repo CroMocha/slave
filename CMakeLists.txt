@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   message_generation
   roscpp
+  serial
 )
 
 find_package(OpenCV 2.4.9.1 EXACT REQUIRED)
@@ -108,7 +109,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES aquascrub
-  CATKIN_DEPENDS rospy std_msgs message_runtime
+  CATKIN_DEPENDS rospy std_msgs message_runtime serial
 #  DEPENDS system_lib
 )
 
