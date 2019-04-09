@@ -203,6 +203,6 @@ include_directories(
 # catkin_add_nosetests(test)
 
 LINK_DIRECTORIES("/usr/local/lib")
-add_executable(apriltags_demo src/apriltags_demo.cpp)
+add_executable(apriltags_demo scripts/apriltags_demo.cpp)
 target_link_libraries(apriltags_demo ${catkin_LIBRARIES} apriltags)
 add_dependencies(apriltags_demo ${catkin_EXPORTED_TARGETS})
