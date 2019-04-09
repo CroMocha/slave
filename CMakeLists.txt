@@ -14,6 +14,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
 )
 
+find_package(OpenCV 2.4.9.1 EXACT REQUIRED)
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -122,6 +124,7 @@ include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
   ${apriltag_include}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -204,5 +207,5 @@ include_directories(
 
 LINK_DIRECTORIES("/usr/local/lib")
 add_executable(apriltags_demo scripts/apriltags_demo.cpp)
-target_link_libraries(apriltags_demo ${catkin_LIBRARIES} apriltags)
+target_link_libraries(apriltags_demo ${catkin_LIBRARIES} ${OpenCV_LIBS} apriltags )
 add_dependencies(apriltags_demo ${catkin_EXPORTED_TARGETS})
