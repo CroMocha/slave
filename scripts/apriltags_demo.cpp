@@ -339,7 +339,7 @@ public:
 
   }
 
-  void print_detection(AprilTags::TagDetection& detection) const {
+  void print_detection(AprilTags::TagDetection& detection) {
     cout << "  Id: " << detection.id
          << " (Hamming: " << detection.hammingDistance << ")";
 
