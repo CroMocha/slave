@@ -125,7 +125,7 @@ void wRo_to_euler(const Eigen::Matrix3d& wRo, double& yaw, double& pitch, double
 
 
 class Demo {
-
+  
   aquascrub::apriltag input;
   ros::Publisher pub = n.advertise<aquascrub::apriltag>("apriltag", 1);
 
