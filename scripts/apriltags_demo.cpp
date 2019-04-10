@@ -27,7 +27,6 @@ const string usage = "\n"
   "\n"
   "Options:\n"
   "  -h  -?          Show help options\n"
-  "  -a              Arduino (send tag ids over serial port)\n"
   "  -d              Disable graphics\n"
   "  -t              Timing of tag extraction\n"
   "  -C <bbxhh>      Tag family (default 36h11)\n"
@@ -76,10 +75,6 @@ const string intro = "\n"
 #include <unistd.h>
 extern int optind;
 extern char *optarg;
-
-// For Arduino: locally defined serial port access class
-#include "Serial.h"
-
 
 const char* windowName = "apriltags_demo";
 
@@ -130,7 +125,6 @@ class Demo {
   AprilTags::TagCodes m_tagCodes;
 
   bool m_draw; // draw image and April tag detections?
-  bool m_arduino; // send tag detections to serial port?
   bool m_timing; // print timing information for each tag extraction call
 
   int m_width; // image size in pixels
@@ -151,8 +145,6 @@ class Demo {
   int m_gain;
   int m_brightness;
 
-  Serial m_serial;
-
 public:
 
   // default constructor
@@ -162,7 +154,6 @@ public:
     m_tagCodes(AprilTags::tagCodes36h11),
 
     m_draw(true),
-    m_arduino(false),
     m_timing(false),
 
     m_width(320),
@@ -212,9 +203,6 @@ public:
         cout << intro;
         cout << usage;
         exit(0);
-        break;
-      case 'a':
-        m_arduino = true;
         break;
       case 'd':
         m_draw = false;
@@ -286,11 +274,6 @@ public:
     if (m_draw) {
       cv::namedWindow(windowName, 1);
     }
-
-    // optional: prepare serial port for communication with Arduino
-    if (m_arduino) {
-      m_serial.open("/dev/ttyACM0");
-    }
   }
 
   void setupVideo() {
@@ -326,7 +309,7 @@ public:
       v4l2_set_control(device, V4L2_CID_BRIGHTNESS, m_brightness*256);
     }
     v4l2_close(device);
-#endif 
+#endif
 
     // find and open a USB camera (built in laptop camera, web cam etc)
     m_cap = cv::VideoCapture(m_deviceId);
@@ -414,28 +397,6 @@ public:
         detections[i].draw(image);
       }
       imshow(windowName, image); // OpenCV call
-    }
-
-    // optionally send tag information to serial port (e.g. to Arduino)
-    if (m_arduino) {
-      if (detections.size() > 0) {
-        // only the first detected tag is sent out for now
-        Eigen::Vector3d translation;
-        Eigen::Matrix3d rotation;
-        detections[0].getRelativeTranslationRotation(m_tagSize, m_fx, m_fy, m_px, m_py,
-                                                     translation, rotation);
-        m_serial.print(detections[0].id);
-        m_serial.print(",");
-        m_serial.print(translation(0));
-        m_serial.print(",");
-        m_serial.print(translation(1));
-        m_serial.print(",");
-        m_serial.print(translation(2));
-        m_serial.print("\n");
-      } else {
-        // no tag detected: tag ID = -1
-        m_serial.print("-1,0.0,0.0,0.0\n");
-      }
     }
   }
 
