@@ -14,7 +14,7 @@
  */
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-#include "aquascrub/apriltag.msg"
+#include "aquascrub/apriltag.h"
 
 #include <sstream>
 
