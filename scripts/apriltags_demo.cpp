@@ -476,7 +476,7 @@ int main(int argc, char* argv[]) {
   ros::init(argc, argv, "apriltags_demo");
   ros::NodeHandle n;
 
-  Demo demo;
+  Demo demo(n);
 
   // process command line options
   demo.parseOptions(argc, argv);
