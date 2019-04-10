@@ -125,9 +125,8 @@ void wRo_to_euler(const Eigen::Matrix3d& wRo, double& yaw, double& pitch, double
 
 
 class Demo {
-  
-  aquascrub::apriltag input;
-  ros::Publisher pub = n.advertise<aquascrub::apriltag>("apriltag", 1);
+
+
 
   AprilTags::TagDetector* m_tagDetector;
   AprilTags::TagCodes m_tagCodes;
@@ -155,9 +154,11 @@ class Demo {
 
 
 public:
-
+  aquascrub::apriltag input;
+  ros::Publisher pub = n.advertise<aquascrub::apriltag>("apriltag", 1);
   // default constructor
   Demo() :
+
     // default settings, most can be modified through command line options (see below)
     m_tagDetector(NULL),
     m_tagCodes(AprilTags::tagCodes36h11),
