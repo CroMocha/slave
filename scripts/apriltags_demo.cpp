@@ -152,9 +152,12 @@ class Demo {
 
 
 public:
+  ros::NodeHandle n;
+  aquascrub::apriltag input;
+  ros::Publisher pub;
 
   // default constructor
-  Demo(ros::NodeHandle& n) :
+  Demo(ros::NodeHandle n) :
 
     // default settings, most can be modified through command line options (see below)
     m_tagDetector(NULL),
@@ -177,8 +180,7 @@ public:
 
     m_deviceId(0)
   {
-    aquascrub::apriltag input;
-    ros::Publisher pub = n.advertise<aquascrub::apriltag>("apriltag", 1);
+    pub = n.advertise<aquascrub::apriltag>("apriltag", 1);
   }
 
   // changing the tag family
