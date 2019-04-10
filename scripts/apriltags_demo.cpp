@@ -178,7 +178,8 @@ public:
     m_gain(-1),
     m_brightness(-1),
 
-    m_deviceId(0)
+    m_deviceId(0),
+    n(n)
   {
     pub = n.advertise<aquascrub::apriltag>("apriltag", 1);
   }
