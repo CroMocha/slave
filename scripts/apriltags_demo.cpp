@@ -12,6 +12,11 @@
  * option to send tag detections via a serial port, for example when
  * running on a Raspberry Pi that is connected to an Arduino.
  */
+#include "ros/ros.h"
+#include "std_msgs/String.h"
+#include "aquascrub/velocity.h"
+
+#include <sstream>
 
 using namespace std;
 
@@ -121,6 +126,9 @@ void wRo_to_euler(const Eigen::Matrix3d& wRo, double& yaw, double& pitch, double
 
 class Demo {
 
+  aquascrub::apriltag input;
+  ros::Publisher pub = n.advertise<aquascrub::apriltag>("apriltag", 1);
+
   AprilTags::TagDetector* m_tagDetector;
   AprilTags::TagCodes m_tagCodes;
 
@@ -144,6 +152,7 @@ class Demo {
   int m_exposure;
   int m_gain;
   int m_brightness;
+
 
 public:
 
@@ -350,6 +359,17 @@ public:
     double yaw, pitch, roll;
     wRo_to_euler(fixed_rot, yaw, pitch, roll);
 
+    input.distance = translation.norm();
+    input.x = translation(0);
+    input.y = translation(1);
+    input.z = translation(2);
+    input.yaw = yaw;
+    input.pitch = pitch;
+    input.roll = roll;
+
+    pub.publish(input);
+
+
     cout << "  distance=" << translation.norm()
          << "m, x=" << translation(0)
          << ", y=" << translation(1)
@@ -451,6 +471,10 @@ public:
 
 // here is were everything begins
 int main(int argc, char* argv[]) {
+
+  ros::init(argc, argv, "apriltags_demo");
+  ros::NodeHandle n;
+
   Demo demo;
 
   // process command line options
@@ -474,6 +498,6 @@ int main(int argc, char* argv[]) {
     demo.loadImages();
 
   }
-
+  ros::spin();
   return 0;
 }

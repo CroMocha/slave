@@ -53,6 +53,7 @@ find_package(OpenCV 2.4.9.1 EXACT REQUIRED)
 add_message_files(
    FILES
    velocity.msg
+   apriltag.msg
 #   Message2.msg
  )
 
@@ -208,4 +209,4 @@ include_directories(
 LINK_DIRECTORIES("/usr/local/lib")
 add_executable(apriltags_demo scripts/apriltags_demo.cpp scripts/Serial.cpp)
 target_link_libraries(apriltags_demo ${catkin_LIBRARIES} ${OpenCV_LIBS} v4l2 apriltags )
-add_dependencies(apriltags_demo ${catkin_EXPORTED_TARGETS})
+add_dependencies(apriltags_demo ${catkin_EXPORTED_TARGETS} aquascrub_generate_messages_cpp)
