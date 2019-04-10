@@ -210,3 +210,5 @@ LINK_DIRECTORIES("/usr/local/lib")
 add_executable(apriltags_demo scripts/apriltags_demo.cpp scripts/Serial.cpp)
 target_link_libraries(apriltags_demo ${catkin_LIBRARIES} ${OpenCV_LIBS} v4l2 apriltags )
 add_dependencies(apriltags_demo ${catkin_EXPORTED_TARGETS} aquascrub_generate_messages_cpp)
+
+set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
