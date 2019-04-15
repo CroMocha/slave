@@ -32,7 +32,7 @@ gpio.output(in4, False)
 class SlaveMotorControl:
     def __init__(self):
         # PID control for forward/backward motion
-        self.kp = 0
+        self.kp = 100
         self.ki = 0
         self.kd = 0
         # PID control for yaw motion
