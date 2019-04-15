@@ -3,4 +3,6 @@
   </node>
   <node name="slave_motor_cmd" pkg="aquascrub" type="slave_motor_controls.py">
   </node>
+  <node name="apriltags_demo" pkg="aquascrub" type="apriltags_demo.cpp">
+  </node>
 </launch>
