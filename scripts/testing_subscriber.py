@@ -14,7 +14,7 @@ class SlaveMotorControl:
 
     def speed_from_master(self,data):
         vel_msg = data.x
-        print "x is" + vel_msg
+        print vel_msg
 
 if __name__ == '__main__':
     try:
