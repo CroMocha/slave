@@ -100,18 +100,20 @@ class SlaveMotorControl:
         if (lmotor_spd < 0):
             gpio.output(in1, False)
             gpio.output(in2, True)
-        else if (lmotor_spd >= 0):
+        elif (lmotor_spd >= 0):
             gpio.output(in1, True)
             gpio.output(in2, False)
         if (rmotor_spd < 0):
             gpio.output(in1, False)
             gpio.output(in2, True)
-        else if (rmotor_spd >= 0):
+        elif (rmotor_spd >= 0):
             gpio.output(in1, True)
             gpio.output(in2, False)
 
+        # Changing speed of motors
         lmotor.ChangeDutyCycle(int(abs(lmotor_spd)))
         rmotor.ChangeDutyCycle(int(abs(lmotor_spd)))
+
 
         self.prev_x = x
         self.prev_y = y
