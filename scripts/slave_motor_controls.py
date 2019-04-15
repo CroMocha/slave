@@ -104,11 +104,11 @@ class SlaveMotorControl:
             gpio.output(in1, True)
             gpio.output(in2, False)
         if (rmotor_spd < 0):
-            gpio.output(in1, False)
-            gpio.output(in2, True)
+            gpio.output(in3, False)
+            gpio.output(in4, True)
         elif (rmotor_spd >= 0):
-            gpio.output(in1, True)
-            gpio.output(in2, False)
+            gpio.output(in3, True)
+            gpio.output(in4, False)
 
         # Changing speed of motors
         lmotor.ChangeDutyCycle(int(abs(lmotor_spd)))
