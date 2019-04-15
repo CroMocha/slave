@@ -32,7 +32,7 @@ gpio.output(in4, False)
 class SlaveMotorControl:
     def __init__(self):
         # PID control for forward/backward motion
-        self.kp = 255
+        self.kp = 100
         self.ki = 0
         self.kd = 0
         # PID control for yaw motion
@@ -52,8 +52,8 @@ class SlaveMotorControl:
         self.integralCap_pitch = 10000
         # If slave receives command from master
         self.reference_spd = 0
-        self.max_spd = 255
-        self.min_spd = -255
+        self.max_spd = 100
+        self.min_spd = -100
         rospy.init_node('slave_motor_cmd', anonymous=True) #name the node
         #rospy.Subscriber('bt_receive_from_master', velocity, self.speed_from_master, queue_size = 1) #callback to some function, increase queuesize to handle more messages
         rospy.Subscriber('apriltag', apriltag, self.maintain_orientation, queue_size = 1)
