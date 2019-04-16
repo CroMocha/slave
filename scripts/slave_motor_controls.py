@@ -11,6 +11,7 @@ in2 = 22 #motor 1 -
 in3 = 23 #motor 2 +
 in4 = 24 #motor 2 -
 
+GPIO.setwarnings(False)
 gpio.setmode(gpio.BCM)
 gpio.setup(in1, gpio.OUT)
 gpio.setup(in2, gpio.OUT)

@@ -1,6 +1,8 @@
 <launch>
-  <node name="bt_comms_with_master" pkg="aquascrub" type="bt_slave.py" output="screen">
+  <node pkg="aquascrub" type="setenv.sh">
   </node>
+  <!-- <node name="bt_comms_with_master" pkg="aquascrub" type="bt_slave.py" output="screen">
+  </node> -->
   <node name="slave_motor_cmd" pkg="aquascrub" type="slave_motor_controls.py">
   </node>
   <node name="apriltags_demo" pkg="aquascrub" type="apriltags_demo">
