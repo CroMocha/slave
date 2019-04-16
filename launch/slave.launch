@@ -1,5 +1,5 @@
 <launch>
-  <node pkg="aquascrub" type="setenv.sh">
+  <node name="setenv" pkg="aquascrub" type="setenv.sh">
   </node>
   <!-- <node name="bt_comms_with_master" pkg="aquascrub" type="bt_slave.py" output="screen">
   </node> -->
