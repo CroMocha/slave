@@ -5,4 +5,6 @@
   </node>
   <node name="apriltags_demo" pkg="aquascrub" type="apriltags_demo">
   </node>
+  <node name="load_cell" pkg="aquascrub" type="loadCell_read.py" output="screen">
+  </node>
 </launch>
