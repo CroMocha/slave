@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
+import rospy
 import time
 import sys
 import RPi.GPIO as GPIO
 from hx711 import HX711
+from std_msgs.msg import String
 
 GPIO.setwarnings(False)
 
