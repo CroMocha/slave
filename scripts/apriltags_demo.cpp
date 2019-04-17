@@ -284,9 +284,9 @@ public:
     m_tagDetector = new AprilTags::TagDetector(m_tagCodes);
 
     // prepare window for drawing the camera images
-    if (m_draw) {
+ /*   if (m_draw) {
       cv::namedWindow(windowName, 1);
-    }
+    }*/
   }
 
   void setupVideo() {
@@ -420,7 +420,7 @@ public:
         // also highlight in the image
         detections[i].draw(image);
       }
-      imshow(windowName, image); // OpenCV call
+    //  imshow(windowName, image); // OpenCV call
     }
   }
 
