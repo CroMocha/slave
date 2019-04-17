@@ -33,11 +33,11 @@ gpio.output(in4, True)
 class SlaveMotorControl:
     def __init__(self):
         # PID control for forward/backward motion
-        self.kp = 0
+        self.kp = 100
         self.ki = 0
         self.kd = 0
         # PID control for yaw motion
-        self.yawrate_kp = 100
+        self.yawrate_kp = 0
         self.yawrate_ki = 0
         self.yawrate_kd = 0
         # For the d term in PID controller
@@ -83,7 +83,7 @@ class SlaveMotorControl:
 
         corrected_spd = (self.kp*y) + (self.kd*diff_y) + (self.kd*self.accumulated_y)
         corrected_yawrate = (self.yawrate_kp*pitch) + (self.yawrate_kd*diff_pitch) + (self.yawrate_ki*self.accumulated_pitch)
-        output_spd = self.reference_spd + corrected_spd
+        output_spd = self.reference_spd - corrected_spd
 
         # Adding constraints to maximum/minimum speed
         lmotor_spd = output_spd + corrected_yawrate
