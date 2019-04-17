@@ -25,8 +25,8 @@ lmotor.start(0)
 rmotor.start(0)
 gpio.output(in1, True)
 gpio.output(in2, False)
-gpio.output(in3, True)
-gpio.output(in4, False)
+gpio.output(in3, False)
+gpio.output(in4, True)
 
 
 
@@ -37,7 +37,7 @@ class SlaveMotorControl:
         self.ki = 0
         self.kd = 0
         # PID control for yaw motion
-        self.yawrate_kp = 10
+        self.yawrate_kp = 0
         self.yawrate_ki = 0
         self.yawrate_kd = 0
         # For the d term in PID controller
@@ -105,15 +105,17 @@ class SlaveMotorControl:
             gpio.output(in1, True)
             gpio.output(in2, False)
         if (rmotor_spd < 0):
-            gpio.output(in3, False)
-            gpio.output(in4, True)
-        elif (rmotor_spd >= 0):
             gpio.output(in3, True)
             gpio.output(in4, False)
+        elif (rmotor_spd >= 0):
+            gpio.output(in3, False)
+            gpio.output(in4, True)
 
         # Changing speed of motors
+        print(lmotor_spd)
+        print(rmotor_spd)
         lmotor.ChangeDutyCycle(int(abs(lmotor_spd)))
-        rmotor.ChangeDutyCycle(int(abs(lmotor_spd)))
+        rmotor.ChangeDutyCycle(int(abs(rmotor_spd)))
 
 
         self.prev_x = x
