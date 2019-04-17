@@ -112,8 +112,7 @@ class SlaveMotorControl:
             gpio.output(in4, True)
 
         # Changing speed of motors
-        print(lmotor_spd)
-        print(rmotor_spd)
+        print "leftmotor: " + str(lmotor_spd) + "  rightmotor: " + str(rmotor_spd)
         lmotor.ChangeDutyCycle(int(abs(lmotor_spd)))
         rmotor.ChangeDutyCycle(int(abs(rmotor_spd)))
 
