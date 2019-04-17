@@ -37,7 +37,7 @@ class SlaveMotorControl:
         self.ki = 0
         self.kd = 0
         # PID control for yaw motion
-        self.yawrate_kp = 0
+        self.yawrate_kp = 15
         self.yawrate_ki = 0
         self.yawrate_kd = 0
         # For the d term in PID controller
