@@ -3,13 +3,14 @@ import numpy as np
 import cv2
 import imutils
 import time
+from math import tan, atan
 
 redLower = (155, 75, 50)
 redUpper = (255, 255, 255)
 
 ball_width = 0.083
 focal_length = 260
-fov = 90
+fov = np.pi/2 #Our calculated FOV for wide angle lens is 90 degrees
 image_width = 320
 
 vs = VideoStream(src=0).start()
@@ -55,12 +56,14 @@ while True:
 		if radius > 5:
 			# draw the circle and centroid on the frame,
 			# then update the list of tracked points
-            diameter = radius*2
-            distance = (ball_width*focal_length/diameter)
-            tan_angle = 2*x*tan(0.5*fov)/image_width
-            angle = atan(tan_angle)
-            print "x: " + str(x) + "y: " + str(y) + "radius:" + str(radius)
-            print "distance: " + str(distance) + "   angle: " + str(angle)
+            		diameter = radius*2
+			dist_from_img_centre = x - image_width/2 
+            		distance = (ball_width*focal_length/diameter)
+            		tan_angle = 2*dist_from_img_centre*tan(0.5*fov)/image_width
+            		angle = atan(tan_angle)
+			print "-----------------------------------------"
+            		print "x: " + str(dist_from_img_centre) + "y: " + str(y) + "radius:" + str(radius)
+            		print "distance: " + str(distance) + "   angle: " + str(angle)
 			cv2.circle(frame, (int(x), int(y)), int(radius),
 				(0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
