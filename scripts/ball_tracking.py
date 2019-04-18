@@ -7,6 +7,11 @@ import time
 redLower = (155, 75, 50)
 redUpper = (255, 255, 255)
 
+ball_width = 0.083
+focal_length = 260
+fov = 90
+image_width = 320
+
 vs = VideoStream(src=0).start()
 # allow the camera or video file to warm up
 time.sleep(2.0)
@@ -18,7 +23,7 @@ while True:
 
 	# resize the frame, blur it, and convert it to the HSV
 	# color space
-	frame = imutils.resize(frame, width=600)
+	frame = imutils.resize(frame, width=320)
 	blurred = cv2.GaussianBlur(frame, (11, 11), 0)
 	hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
 
@@ -50,6 +55,12 @@ while True:
 		if radius > 5:
 			# draw the circle and centroid on the frame,
 			# then update the list of tracked points
+            diameter = radius*2
+            distance = (ball_width*focal_length/diameter)
+            tan_angle = 2*x*tan(0.5*fov)/image_width
+            angle = atan(tan_angle)
+            print "x: " + str(x) + "y: " + str(y) + "radius:" + str(radius)
+            print "distance: " + str(distance) + "   angle: " + str(angle)
 			cv2.circle(frame, (int(x), int(y)), int(radius),
 				(0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
@@ -61,7 +72,7 @@ while True:
 	# if the 'q' key is pressed, stop the loop
 	if key == ord("q"):
 		break
-        
+
 # otherwise, release the camera
 else:
 	vs.release()
