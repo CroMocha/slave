@@ -66,7 +66,7 @@ while True:
 			c = c.astype("float")
 			c = c.astype("int")
 			cv2.drawContours(frame, [c], -1, (0, 255, 0), 1)
-			print "x: " + str(x) + "   y: " + str(y) + "   width: " + str(width) + "   y: " + str(height)
+			print "x: " + str(x) + "   y: " + str(y) + "   width: " + str(w) + "   y: " + str(h)
 
 		# only proceed if the radius meets a minimum size
 		# if radius > 5:
