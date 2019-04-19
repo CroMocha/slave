@@ -25,18 +25,19 @@ time.sleep(2.0)
 # keep looping
 while True:
 	# grab the current frame
-	frame = vs.read()
+	original_frame = vs.read()
 
 	# resize the frame, blur it, and convert it to the HSV
 	# color space
-	frame = imutils.resize(frame, width=320)
+	frame = imutils.resize(original_frame, width=320)
+	ratio = original_frame.shape[0] / float(frame.shape[0])
 	blurred = cv2.GaussianBlur(frame, (11, 11), 0)
 	hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
 
 	# construct a mask for the color "green", then perform
 	# a series of dilations and erosions to remove any small
 	# blobs left in the mask
-	mask = cv2.inRange(hsv, redLower, redUpper)
+	mask = cv2.inRange(hsv, greenLower, greenUpper)
 	mask = cv2.erode(mask, None, iterations=2)
 	mask = cv2.dilate(mask, None, iterations=2)
 
@@ -53,25 +54,35 @@ while True:
 		# it to compute the minimum enclosing circle and
 		# centroid
 		c = max(cnts, key=cv2.contourArea)
-		((x, y), radius) = cv2.minEnclosingCircle(c)
 		M = cv2.moments(c)
 		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+		peri = cv2.arcLength(c, True)
+		approx = cv2.approxPolyDP(c, 0.04 * peri, True)
+		print "No. of vertices: " + str(len(approx))
+
+		if len(approx) == 4:
+			(x, y, w, h) = cv2.boundingRect(approx)
+			ar = w / float(h)
+			c = c.astype("float")
+			c = c.astype("int")
+			cv2.drawContours(frame, [c], -1, (0, 255, 0), 1)
+			print "x: " + str(x) + "   y: " + str(y) + "   width: " + str(width) + "   y: " + str(height)
 
 		# only proceed if the radius meets a minimum size
-		if radius > 5:
-			# draw the circle and centroid on the frame,
-			# then update the list of tracked points
-            		diameter = radius*2
-			dist_from_img_centre = x - image_width/2
-            		distance = (ball_width*focal_length/diameter)
-            		tan_angle = 2*dist_from_img_centre*tan(0.5*fov)/image_width
-            		angle = atan(tan_angle)
-			print "-----------------------------------------"
-            		print "x: " + str(dist_from_img_centre) + "y: " + str(y) + "radius:" + str(radius)
-            		print "distance: " + str(distance) + "   angle: " + str(angle)
-			cv2.circle(frame, (int(x), int(y)), int(radius),
-				(0, 255, 255), 2)
-			cv2.circle(frame, center, 5, (0, 0, 255), -1)
+		# if radius > 5:
+		# 	# draw the circle and centroid on the frame,
+		# 	# then update the list of tracked points
+        #     		diameter = radius*2
+		# 	dist_from_img_centre = x - image_width/2
+        #     		distance = (ball_width*focal_length/diameter)
+        #     		tan_angle = 2*dist_from_img_centre*tan(0.5*fov)/image_width
+        #     		angle = atan(tan_angle)
+		# 	print "-----------------------------------------"
+        #     		print "x: " + str(dist_from_img_centre) + "y: " + str(y) + "radius:" + str(radius)
+        #     		print "distance: " + str(distance) + "   angle: " + str(angle)
+		# 	cv2.circle(frame, (int(x), int(y)), int(radius),
+		# 		(0, 255, 255), 2)
+		# 	cv2.circle(frame, center, 5, (0, 0, 255), -1)
 
 	# show the frame to our screen
 	cv2.imshow("Frame", frame)
