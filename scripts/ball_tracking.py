@@ -9,7 +9,7 @@ redLower = (155, 75, 50)
 redUpper = (255, 255, 255)
 
 ball_width = 0.083
-focal_length = 260
+focal_length = 213 #For wide-angle lens
 fov = np.pi/2 #Our calculated FOV for wide angle lens is 90 degrees
 image_width = 320
 
