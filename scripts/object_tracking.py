@@ -110,8 +110,8 @@ def trackObjects():
         		print "x: " + str(pole_x) + "   y: " + str(pole_y) + "   width: " + str(pole_pixel_width) + "   height: " + str(pole_pixel_height)
         		print "pole_distance: " + str(pole_distance) + "   pole_angle: " + str(pole_angle)
                         object_msg.obsdetected = True
-                        object_msg.obsangle = pole_distance
-                        object_msg.obsdist = pole_angle
+                        object_msg.obsangle = pole_angle
+                        object_msg.obsdist = pole_distance
 
                 else:
                     object_msg.obsdetected = False
