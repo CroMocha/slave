@@ -54,6 +54,7 @@ add_message_files(
    FILES
    velocity.msg
    apriltag.msg
+   object.msg
 #   Message2.msg
  )
 
