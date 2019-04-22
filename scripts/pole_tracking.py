@@ -60,13 +60,18 @@ while True:
 		approx = cv2.approxPolyDP(c, 0.04 * peri, True)
 		print "No. of vertices: " + str(len(approx))
 
-		if len(approx) == 4:
-			(x, y, w, h) = cv2.boundingRect(approx)
-			ar = w / float(h)
-			c = c.astype("float")
-			c = c.astype("int")
-			cv2.drawContours(frame, [c], -1, (0, 255, 0), 1)
-			print "x: " + str(x) + "   y: " + str(y) + "   width: " + str(w) + "   y: " + str(h)
+        rect = cv.minAreaRect(c)
+		box = cv.boxPoints(rect)
+		box = np.int0(box)
+		cv.drawContours(frame,[box],0,(0,0,255),2)
+
+		# if len(approx) == 4:
+		# 	(x, y, w, h) = cv2.boundingRect(approx)
+		# 	ar = w / float(h)
+		# 	c = c.astype("float")
+		# 	c = c.astype("int")
+		# 	cv2.drawContours(frame, [c], -1, (0, 255, 0), 1)
+		# 	print "x: " + str(x) + "   y: " + str(y) + "   width: " + str(w) + "   y: " + str(h)
 
 		# only proceed if the radius meets a minimum size
 		# if radius > 5:
