@@ -60,10 +60,10 @@ while True:
 		approx = cv2.approxPolyDP(c, 0.04 * peri, True)
 		print "No. of vertices: " + str(len(approx))
 
-        rect = cv.minAreaRect(c)
-		box = cv.boxPoints(rect)
+                rect = cv2.minAreaRect(c)
+		box = cv2.boxPoints(rect)
 		box = np.int0(box)
-		cv.drawContours(frame,[box],0,(0,0,255),2)
+		cv2.drawContours(frame,[box],0,(0,0,255),2)
 
 		# if len(approx) == 4:
 		# 	(x, y, w, h) = cv2.boundingRect(approx)
