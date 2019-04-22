@@ -36,25 +36,25 @@ while True:
 	# construct a mask for the color "green", then perform
 	# a series of dilations and erosions to remove any small
 	# blobs left in the mask
-	mask = cv2.inRange(hsv, redLower, redUpper)
-	mask = cv2.erode(mask, None, iterations=2)
-	mask = cv2.dilate(mask, None, iterations=2)
+	ball_mask = cv2.inRange(hsv, redLower, redUpper)
+	ball_mask = cv2.erode(ball_mask, None, iterations=2)
+	ball_mask = cv2.dilate(ball_mask, None, iterations=2)
 
     	# find contours in the mask and initialize the current
 	# (x, y) center of the ball
-	cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
+	ball_cnts = cv2.findContours(ball_mask.copy(), cv2.RETR_EXTERNAL,
 		cv2.CHAIN_APPROX_SIMPLE)
-	cnts = imutils.grab_contours(cnts)
+	ball_cnts = imutils.grab_contours(ball_cnts)
 	center = None
 
 	# only proceed if at least one contour was found
-	if len(cnts) > 0:
+	if len(ball_cnts) > 0:
 		# find the largest contour in the mask, then use
 		# it to compute the minimum enclosing circle and
 		# centroid
-		c = max(cnts, key=cv2.contourArea)
-		((x, y), radius) = cv2.minEnclosingCircle(c)
-		M = cv2.moments(c)
+		ball_c = max(ball_cnts, key=cv2.contourArea)
+		((ball_x, ball_y), radius) = cv2.minEnclosingCircle(ball_c)
+		M = cv2.moments(ball_c)
 		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
 		# only proceed if the radius meets a minimum size
@@ -62,14 +62,14 @@ while True:
 			# draw the circle and centroid on the frame,
 			# then update the list of tracked points
             		diameter = radius*2
-			dist_from_img_centre = x - image_width/2
-            		distance = (ball_width*focal_length/diameter)
-            		tan_angle = 2*dist_from_img_centre*tan(0.5*fov)/image_width
-            		angle = atan(tan_angle)
+			dist_from_img_centre = ball_x - image_width/2
+            		ball_distance = (ball_width*focal_length/diameter)
+            		ball_tan_angle = 2*dist_from_img_centre*tan(0.5*fov)/image_width
+            		ball_angle = atan(ball_tan_angle)
 			print "-----------------------------------------"
-            		print "x: " + str(dist_from_img_centre) + "y: " + str(y) + "radius:" + str(radius)
-            		print "distance: " + str(distance) + "   angle: " + str(angle)
-			cv2.circle(frame, (int(x), int(y)), int(radius),
+            		print "x: " + str(dist_from_img_centre) + "y: " + str(ball_y) + "radius:" + str(radius)
+            		print "distance: " + str(ball_distance) + "   angle: " + str(ball_angle)
+			cv2.circle(frame, (int(ball_x), int(ball_y)), int(radius),
 				(0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
 

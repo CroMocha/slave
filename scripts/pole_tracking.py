@@ -51,8 +51,8 @@ while True:
 		# find the largest contour in the mask, then use
 		# it to compute the minimum enclosing circle and
 		# centroid
-		c = max(pole_cnts, key=cv2.contourArea)
-                rect = cv2.minAreaRect(c)
+		pole_c = max(pole_cnts, key=cv2.contourArea)
+                rect = cv2.minAreaRect(pole_c)
 		pole_x = rect[0][0]
 		pole_y = rect[0][1]
 		pole_pixel_width = min(rect[1][0],rect[1][1])
