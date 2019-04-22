@@ -413,7 +413,18 @@ public:
     for (int i=0; i<detections.size(); i++) {
       print_detection(detections[i]);
     }
-
+    
+    if (detections.size() == 0)
+    {
+      input.distance = 0;
+      input.x = 0;
+      input.y = 0;
+      input.z = 0;
+      input.yaw = 0;
+      input.roll = 0;
+      input.pitch = 0;
+      pub.publish(input);
+    }
     // show the current image including any detections
     if (m_draw) {
       for (int i=0; i<detections.size(); i++) {

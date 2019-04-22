@@ -5,13 +5,13 @@ def motor_control(mode,dc1,dc2,sec):
     if mode == 1:
         gpio.output(in1, True)
         gpio.output(in2, False)
-        gpio.output(in3, True) 
-        gpio.output(in4, False)
+        gpio.output(in3, False) 
+        gpio.output(in4, True)
     if mode == 0:
         gpio.output(in1, False)
         gpio.output(in2, True)
-        gpio.output(in3, False) 
-        gpio.output(in4, True)
+        gpio.output(in3, True) 
+        gpio.output(in4, False)
     p.ChangeDutyCycle(dc1)
     q.ChangeDutyCycle(dc2)
     time.sleep(sec)

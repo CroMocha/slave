@@ -4,7 +4,7 @@ import time
 import rospy
 from aquascrub.msg import apriltag
 
-ena = 2 #enable motor 1
+xena = 2 #enable motor 1
 enb = 3 #enable motor 2
 in1 = 17 #motor 1 +
 in2 = 22 #motor 1 -
@@ -33,7 +33,7 @@ gpio.output(in4, True)
 class SlaveMotorControl:
     def __init__(self):
         # PID control for forward/backward motion
-        self.kp = 150
+        self.kp = 300
         self.ki = 0
         self.kd = 0
         # PID control for yaw motion
@@ -91,22 +91,12 @@ class SlaveMotorControl:
             lmotor_spd = self.max_spd
         if (lmotor_spd < self.min_spd):
             lmotor_spd = self.min_spd
-        if (0 < lmotor_spd < 40):
-            lmotor_spd = 40
-        if (-40 < lmotor_spd < 0):
-            lmotor_spd = -40
-
         lmotor_spd *= 1
         rmotor_spd = output_spd - corrected_yawrate
         if (rmotor_spd > self.max_spd):
             rmotor_spd = self.max_spd
         if (rmotor_spd < self.min_spd):
             rmotor_spd = self.min_spd
-        if (0 < rmotor_spd < 40):
-            rmotor_spd = 40
-        if (-40 < rmotor_spd < 0):
-            rmotor_spd = -40
- 
         #rmotor_spd *= 0.72
         # Changing direction of motors
         if (lmotor_spd < 0):
