@@ -67,8 +67,8 @@ while True:
             		ball_tan_angle = 2*dist_from_img_centre*tan(0.5*fov)/image_width
             		ball_angle = atan(ball_tan_angle)
 			print "-----------------------------------------"
-            		print "x: " + str(dist_from_img_centre) + "y: " + str(ball_y) + "radius:" + str(radius)
-            		print "distance: " + str(ball_distance) + "   angle: " + str(ball_angle)
+            		print "ball_x: " + str(dist_from_img_centre) + "ball_y: " + str(ball_y) + "radius:" + str(radius)
+            		print "ball_distance: " + str(ball_distance) + "   ball_angle: " + str(ball_angle)
 			cv2.circle(frame, (int(ball_x), int(ball_y)), int(radius),
 				(0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)

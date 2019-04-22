@@ -25,29 +25,52 @@ time.sleep(2.0)
 # keep looping
 while True:
 	# grab the current frame
-	original_frame = vs.read()
+	frame = vs.read()
 
 	# resize the frame, blur it, and convert it to the HSV
 	# color space
-	frame = imutils.resize(original_frame, width=320)
+	frame = imutils.resize(frame, width=320)
 	blurred = cv2.GaussianBlur(frame, (11, 11), 0)
 	hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
 
-	# construct a mask for the color "green", then perform
-	# a series of dilations and erosions to remove any small
-	# blobs left in the mask
-	pole_mask = cv2.inRange(hsv, greenLower, greenUpper)
+	ball_mask = cv2.inRange(hsv, redLower, redUpper)
+	ball_mask = cv2.erode(ball_mask, None, iterations=2)
+	ball_mask = cv2.dilate(ball_mask, None, iterations=2)
+
+	ball_cnts = cv2.findContours(ball_mask.copy(), cv2.RETR_EXTERNAL,
+		cv2.CHAIN_APPROX_SIMPLE)
+	ball_cnts = imutils.grab_contours(ball_cnts)
+	center = None
+
+    pole_mask = cv2.inRange(hsv, greenLower, greenUpper)
 	pole_mask = cv2.erode(pole_mask, None, iterations=2)
 	pole_mask = cv2.dilate(pole_mask, None, iterations=2)
 
-    	# find contours in the mask and initialize the current
-	# (x, y) center of the ball
-	pole_cnts = cv2.findContours(pole_mask.copy(), cv2.RETR_EXTERNAL,
+    pole_cnts = cv2.findContours(pole_mask.copy(), cv2.RETR_EXTERNAL,
 		cv2.CHAIN_APPROX_SIMPLE)
 	pole_cnts = imutils.grab_contours(pole_cnts)
 
-	# only proceed if at least one contour was found
-	if len(pole_cnts) > 0:
+	if len(ball_cnts) > 0:
+
+		ball_c = max(ball_cnts, key=cv2.contourArea)
+		((ball_x, ball_y), radius) = cv2.minEnclosingCircle(ball_c)
+		M = cv2.moments(ball_c)
+		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+
+		if radius > 5:
+            		diameter = radius*2
+			ball_dist_from_img_centre = ball_x - image_width/2
+            		ball_distance = (ball_width*focal_length/diameter)
+            		ball_tan_angle = 2*ball_dist_from_img_centre*tan(0.5*fov)/image_width
+            		ball_angle = atan(ball_tan_angle)
+			print "-----------------------------------------"
+            		print "ball_x: " + str(ball_dist_from_img_centre) + "ball_y: " + str(ball_y) + "radius:" + str(radius)
+            		print "ball_distance: " + str(ball_distance) + "   ball_angle: " + str(ball_angle)
+			cv2.circle(frame, (int(ball_x), int(ball_y)), int(radius),
+				(0, 255, 255), 2)
+			cv2.circle(frame, center, 5, (0, 0, 255), -1)
+
+    if len(pole_cnts) > 0:
 		# find the largest contour in the mask, then use
 		# it to compute the minimum enclosing circle and
 		# centroid
@@ -69,17 +92,13 @@ while True:
 		print "x: " + str(pole_x) + "   y: " + str(pole_y) + "   width: " + str(pole_pixel_width) + "   height: " + str(pole_pixel_height)
 		print "pole_distance: " + str(pole_distance) + "   pole_angle: " + str(pole_angle)
 
-	# show the frame to our screen
 	cv2.imshow("Frame", frame)
 	key = cv2.waitKey(1) & 0xFF
 
-	# if the 'q' key is pressed, stop the loop
 	if key == ord("q"):
 		break
 
-# otherwise, release the camera
 else:
 	vs.release()
 
-# close all windows
 cv2.destroyAllWindows()
