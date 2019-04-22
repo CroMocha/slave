@@ -11,7 +11,7 @@ greenLower = (50, 55, 16)
 greenUpper = (77, 255, 255)
 
 ball_width = 0.083
-pole_width = 0.021
+pole_width = 0.11
 pole_height = 0.5
 focal_length = 213 #For wide-angle lens
 fov = np.pi/2 #Our calculated FOV for wide angle lens is 90 degrees
@@ -66,10 +66,16 @@ while True:
 		cv2.drawContours(frame,[box],0,(0,0,255),2)
 		x = rect[0][0]
 		y = rect[0][1]
-		width = rect[1][0]
-		height = rect[1][1]
+		width = min(rect[1][0],rect[1][1])
+		height = max(rect[1][0],rect[1][1])
 		angle_rotation = rect[2]
+		cv2.circle(frame, (int(x),int(y)), 5, (0, 255, 0), -1)
+		distance = (pole_height*focal_length/height)
+		dist_from_img_centre = x - image_width/2
+		tan_angle = 2*dist_from_img_centre*tan(0.5*fov)/image_width
+        angle = atan(tan_angle)
 		print "x: " + str(x) + "   y: " + str(y) + "   width: " + str(width) + "   height: " + str(height)
+		print "distance: " + str(distance) + "   angle: " + str(angle)
 
 		# if len(approx) == 4:
 		# 	(x, y, w, h) = cv2.boundingRect(approx)
