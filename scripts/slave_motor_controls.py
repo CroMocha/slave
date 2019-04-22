@@ -4,8 +4,8 @@ import time
 import rospy
 from aquascrub.msg import apriltag
 
-ena = 2 #enable motor 1
-enb = 3 #enable motor 2
+ena = 2 #enable motor 1 (rightmotor)
+enb = 3 #enable motor 2 (leftmotor)
 in1 = 17 #motor 1 +
 in2 = 22 #motor 1 -
 in3 = 23 #motor 2 +
@@ -106,7 +106,7 @@ class SlaveMotorControl:
             rmotor_spd = 40
         if (-40 < rmotor_spd < 0):
             rmotor_spd = -40
- 
+
         #rmotor_spd *= 0.72
         # Changing direction of motors
         if (lmotor_spd < 0):
