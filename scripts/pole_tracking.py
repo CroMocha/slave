@@ -7,8 +7,8 @@ from math import tan, atan
 
 redLower = (155, 75, 50)
 redUpper = (255, 255, 255)
-greenLower = (50, 50, 50)
-greenUpper = (100, 150, 255)
+greenLower = (50, 55, 16)
+greenUpper = (77, 255, 255)
 
 ball_width = 0.083
 pole_width = 0.021
