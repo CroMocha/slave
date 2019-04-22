@@ -73,7 +73,7 @@ while True:
 		distance = (pole_height*focal_length/height)
 		dist_from_img_centre = x - image_width/2
 		tan_angle = 2*dist_from_img_centre*tan(0.5*fov)/image_width
-        angle = atan(tan_angle)
+                angle = atan(tan_angle)
 		print "x: " + str(x) + "   y: " + str(y) + "   width: " + str(width) + "   height: " + str(height)
 		print "distance: " + str(distance) + "   angle: " + str(angle)
 
