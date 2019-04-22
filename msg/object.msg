@@ -4,3 +4,6 @@ float64 trashdist
 bool obsdetected
 float64 obsangle
 float64 obsdist
+bool collectiondetected
+float64 collectionangle
+float64 collectiondist
