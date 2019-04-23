@@ -11,12 +11,12 @@ ECHO2 = 7
 GPIO.setup(TRIG2,GPIO.OUT)
 GPIO.setup(ECHO2,GPIO.IN)
 running = True
+rospy.init_node('slave_right_US')
+right_US_pub = rospy.Publisher('bt_send_to_master', String, queue_size = 10)
 rate=rospy.Rate(10)
 warningcount2 = 0
 
 def distanceMeasure2():
-    rospy.init_node('slave_right_US')
-    right_US_pub = rospy.Publisher('bt_send_to_master', String, queue_size = 10)
     threshold2 = 2
     GPIO.output(TRIG2,0)
     time.sleep(0.05)

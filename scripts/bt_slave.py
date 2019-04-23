@@ -2,7 +2,7 @@
 # Uses Bluez for Linux
 #
 # sudo apt-get install bluez python-bluez
-# 
+#
 # Taken from: https://people.csail.mit.edu/albert/bluez-intro/x232.html
 # Taken from: https://people.csail.mit.edu/albert/bluez-intro/c212.html
 
@@ -70,7 +70,7 @@ class BluetoothSlave:
             except Exception as e:
                 print("Bt Master Read: "+ str(e))
                 if "(4," in str(e):
-                    exit()                
+                    exit()
 
     def write_to_master(self, data):
         while self.connected == True:
@@ -95,4 +95,4 @@ class BluetoothSlave:
             print str(bluetooth.lookup_name( bdaddr )) + " [" + str(bdaddr) + "]"
 
 if __name__ == '__main__':
-    f = BluetoothSlave() 
+    f = BluetoothSlave()
