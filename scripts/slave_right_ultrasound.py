@@ -6,8 +6,8 @@ from std_msgs.msg import String
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-TRIG2 = 5
-ECHO2 = 6
+TRIG2 = 8
+ECHO2 = 7
 GPIO.setup(TRIG2,GPIO.OUT)
 GPIO.setup(ECHO2,GPIO.IN)
 running = True
