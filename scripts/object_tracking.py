@@ -11,8 +11,8 @@ from aquascrub.msg import object
 
 redLower = (155, 75, 50)
 redUpper = (255, 255, 255)
-greenLower = (50, 55, 16)
-greenUpper = (77, 255, 255)
+greenLower = (50, 50, 0)
+greenUpper = (80, 255, 255)
 
 ball_width = 0.083
 pole_width = 0.11

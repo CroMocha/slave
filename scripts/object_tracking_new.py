@@ -13,13 +13,13 @@ redLower = (155, 75, 50)
 redUpper = (255, 255, 255)
 greenLower = (50, 55, 16)
 greenUpper = (77, 255, 255)
-yellowLower = (0,0,0)
-yellowUpper = (255,255,255)
+yellowLower = (24,99,0)
+yellowUpper = (42,255,255)
 
 ball_width = 0.083
 pole_width = 0.11
 pole_height = 0.5
-collection_height = 0.000
+collection_height = 0.375
 focal_length = 213 #For wide-angle lens
 fov = np.pi/2 #Our calculated FOV for wide angle lens is 90 degrees
 image_width = 320
@@ -62,13 +62,13 @@ def trackObjects():
         		cv2.CHAIN_APPROX_SIMPLE)
         	pole_cnts = imutils.grab_contours(pole_cnts)
 
-            collection_mask = cv2.inRange(hsv, yellowLower, yellowUpper)
-        collection_mask = cv2.erode(collection_mask, None, iterations=2)
-        collection_mask = cv2.dilate(collection_mask, None, iterations=2)
+                collection_mask = cv2.inRange(hsv, yellowLower, yellowUpper)
+                collection_mask = cv2.erode(collection_mask, None, iterations=2)
+                collection_mask = cv2.dilate(collection_mask, None, iterations=2)
 
-            collection_cnts = cv2.findContours(collection_mask.copy(), cv2.RETR_EXTERNAL,
+                collection_cnts = cv2.findContours(collection_mask.copy(), cv2.RETR_EXTERNAL,
             cv2.CHAIN_APPROX_SIMPLE)
-        collection_cnts = imutils.grab_contours(collection_cnts)
+                collection_cnts = imutils.grab_contours(collection_cnts)
 
                 if len(ball_cnts) > 0 or len(pole_cnts) > 0 or len(collection_cnts) > 0:
                     print "-------------------------------------------------"
@@ -144,7 +144,7 @@ def trackObjects():
         		collection_box = np.int0(collection_box)
         		cv2.drawContours(frame,[collection_box],0,(255,0,255),2)
         		cv2.circle(frame, (int(collection_x),int(collection_y)), 3, (0, 255, 0), -1)
-        		collection_distance = (collection_height*focal_length/collection_pixel_height)
+        		collection_distance = (collection_height*focal_length/collection_width)
         		collection_dist_from_img_centre = collection_x - image_width/2
         		collection_tan_angle = 2*collection_dist_from_img_centre*tan(0.5*fov)/image_width
                         collection_angle = atan(collection_tan_angle)
