@@ -12,7 +12,7 @@
 class Serial {
 
   int m_serialPort; // file description for the serial port
-  
+
 public:
 
   Serial() : m_serialPort(-1) {}

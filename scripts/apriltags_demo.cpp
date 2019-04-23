@@ -413,7 +413,7 @@ public:
     for (int i=0; i<detections.size(); i++) {
       print_detection(detections[i]);
     }
-    
+
     if (detections.size() == 0)
     {
       input.distance = 0;
