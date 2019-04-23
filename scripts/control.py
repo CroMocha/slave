@@ -36,6 +36,8 @@ angular_multiplier = 25
 
 class SlaveMotorControl:
     def __init__(self):
+        self.min_spd = -100
+        self.max_spd = 100
         rospy.init_node('control', anonymous=True) #name the node
         #rospy.Subscriber('bt_receive_from_master', velocity, self.speed_from_master, queue_size = 1) #callback to some function, increase queuesize to handle more messages
         rospy.Subscriber('cmd_vel', Twist, self.move, queue_size = 1)
